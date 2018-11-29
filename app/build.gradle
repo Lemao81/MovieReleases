@@ -1,33 +1,68 @@
-apply plugin: 'com.android.application'
+import buildSrc.PluginId
+import buildSrc.Path
+import buildSrc.App
+import buildSrc.Const
+import buildSrc.Dimension
+import buildSrc.Version
+import buildSrc.Lib
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
+apply plugin: PluginId.androidApplication
+apply plugin: PluginId.kotlinAndroid
+apply from: Path.baseKotlinAndroidExtension
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion App.compileSdkVersion
+
     defaultConfig {
-        applicationId "com.jueggs.moviereleases"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        applicationId App.applicationId
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        versionCode App.versionCode
+        versionName App.versionName
+
+        javaCompileOptions { annotationProcessorOptions.includeCompileClasspath = true }
+        multiDexEnabled true
+        testInstrumentationRunner Const.androidTestRunner
     }
+
     buildTypes {
+        debug { minifyEnabled false }
+
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    flavorDimensions Dimension.main
+    productFlavors {
+        dev {
+            dimension Dimension.main
+            applicationIdSuffix ".dev"
+            resConfigs "en", "xhdpi"
+        }
+        prod {
+            dimension Dimension.main
+            applicationIdSuffix ".prod"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = Version.java8
+        targetCompatibility = Version.java8
+    }
+
+    dexOptions { preDexLibraries true }
+
+    if (project.hasProperty('devBuild')) {
+        splits.abi.enable = false
+        splits.density.enable = false
+        aaptOptions.cruncherEnabled = false
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation Lib.kotlinStd8
+    implementation Lib.supportAppcompat
+    implementation Lib.supportConstraintLayout
 }

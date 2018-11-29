@@ -1,27 +1,36 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import buildSrc.Plugin
+import buildSrc.Url
+import buildSrc.Path
+
+apply from: Path.baseProject
 
 buildscript {
-    ext.kotlin_version = '1.3.0'
     repositories {
-        google()
         jcenter()
+        google()
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    dependencies {
+        classpath Plugin.androidGradle
+        classpath Plugin.kotlin
     }
 }
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        google()
+        maven { url Url.mavenLocalInternal }
+        maven { url Url.maven }
     }
+
+    disableLintTasks(it)
+    ignoreRelease(it)
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+    group 'Cleanup'
+    doLast {
+        delete rootProject.buildDir
+    }
 }
