@@ -1,6 +1,4 @@
-import buildSrc.Extension
-import buildSrc.BuildType
-import buildSrc.Flavor
+import buildSrc.*
 
 ext {
     disableLintTasks = { project ->

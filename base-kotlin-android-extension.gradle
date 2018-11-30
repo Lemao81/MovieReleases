@@ -1,4 +1,4 @@
-import buildSrc.PluginId
+import buildSrc.*
 
 apply plugin: PluginId.kotlinAndroidExtensions
 

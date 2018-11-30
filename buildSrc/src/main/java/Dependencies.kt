@@ -246,3 +246,12 @@ object BuildType {
     const val release = "release"
     const val debug = "debug"
 }
+
+object Path {
+    const val baseProject = "base-project.gradle"
+    const val baseAndroidLibrary = "../base-android-library.gradle"
+    const val baseJavaLibrary = "../base-java-library.gradle"
+    const val baseKotlinAndroidExtension = "../base-kotlin-android-extension.gradle"
+    const val baseKapt = "../base-kapt.gradle"
+    const val baseDatabinding = "../base-databinding.gradle"
+}

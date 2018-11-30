@@ -1,13 +1,11 @@
-import buildSrc.Plugin
-import buildSrc.Url
-import buildSrc.Path
+import buildSrc.*
 
 apply from: Path.baseProject
 
 buildscript {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 
     dependencies {
@@ -18,8 +16,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
         maven { url Url.mavenLocalInternal }
         maven { url Url.maven }
     }
