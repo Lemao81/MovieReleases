@@ -56,7 +56,6 @@ android {
 }
 
 dependencies {
-    implementation Lib.kotlinStd8
-    implementation Lib.supportAppcompat
-    implementation Lib.supportConstraintLayout
+    implementation Lib.androidxAppcompat
+    implementation Lib.androidxConstraintLayout
 }
