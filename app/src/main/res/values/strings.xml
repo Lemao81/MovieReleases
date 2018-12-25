@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MovieReleases</string>
+    <string name="home">Home</string>
+    <string name="new_releases">New releases</string>
 </resources>
